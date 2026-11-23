@@ -1,0 +1,6 @@
+{
+  "name": "SAATH — Community Safety, Connected",
+  "description": "Civic transparency, local incident reporting, opt-in alerts, incident-aware demo routes, emergency SOS, and AI-assisted operator triage.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
