@@ -1,6 +1,14 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import Database from 'better-sqlite3';
 
 export function initDatabase(dbPath: string): Database.Database {
+  if (dbPath !== ':memory:') {
+    const parentDir = path.dirname(path.resolve(dbPath));
+    if (!fs.existsSync(parentDir)) {
+      fs.mkdirSync(parentDir, { recursive: true });
+    }
+  }
   const db = new Database(dbPath);
   db.pragma('foreign_keys = ON');
   if (dbPath !== ':memory:') {

@@ -6,20 +6,46 @@ SAATH is a civic transparency and public-information web application for local i
 
 ## Quick Start
 
+### Prerequisites
+- Node.js **20.x LTS** or **22.x+**
+- npm 10+
+
+### Local Setup
 ```bash
 npm install
 npm run dev
 ```
 
-Open `http://localhost:3000`.
+Open `http://localhost:3000` in your browser.
 
-To run automated tests and type checks:
+To run verification, tests, and production build:
 
 ```bash
-npm test
-npm run lint
-npm run build
+npm test        # Run Vitest test suite (12 tests)
+npm run lint    # Typecheck with TypeScript
+npm run build   # Build production assets with Vite
+npm start       # Run in production mode with static asset serving
 ```
+
+### Docker Setup
+
+You can build and run SAATH as a lightweight container:
+
+```bash
+# Build Docker image
+docker build -t saath .
+
+# Run container with persistent data volume
+docker run -d -p 3000:3000 -v saath-data:/app/data --name saath saath
+```
+
+## Deployment
+
+SAATH is container-ready and can be deployed to any platform supporting Node.js or Docker (e.g. Render, Railway, Fly.io, AWS ECS, Google Cloud Run, DigitalOcean, VPS).
+
+- **Production Command:** `npm run build && npm start`
+- **Port:** Configured via `PORT` (defaults to `3000`).
+- **Data Persistence:** Persistent storage is recommended for `SQLITE_PATH` and `UPLOADS_DIR` when using container volumes or mounted disks.
 
 ## Environment Variables
 
@@ -27,12 +53,14 @@ Copy `.env.example` to `.env` (or configure secrets in your hosting environment)
 
 | Variable | Required | Default | Purpose |
 |---|---|---|---|
+| `PORT` | Optional | `3000` | Port for the HTTP/WebSocket server. |
 | `GEMINI_API_KEY` | Optional | — | Enables live Gemini triage (`gemini-4-hydrogen`). App falls back to deterministic keyword rules when unset. |
 | `GEMINI_MODEL` | Optional | `gemini-4-hydrogen` | Gemini model alias for server-side triage. |
 | `OPERATOR_PASSWORD` | Optional | — | Passcode for Operator Console access. If unset, the Login screen offers a one-time first-run passcode setup stored as an `scrypt` hash. |
 | `DEFAULT_LAT` | Optional | `21.1458` | Default city center latitude (Nagpur, India). |
 | `DEFAULT_LNG` | Optional | `79.0882` | Default city center longitude (Nagpur, India). |
 | `SQLITE_PATH` | Optional | `./saath.db` | SQLite database file path. |
+| `UPLOADS_DIR` | Optional | `./uploads` | Directory path for user evidence uploads. |
 
 ## What Is Simulated
 

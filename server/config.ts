@@ -25,7 +25,7 @@ export const config = {
   defaultLat: Number.isFinite(DEFAULT_LAT) ? DEFAULT_LAT : 21.1458,
   defaultLng: Number.isFinite(DEFAULT_LNG) ? DEFAULT_LNG : 79.0882,
   sqlitePath: process.env.SQLITE_PATH || path.resolve(process.cwd(), 'saath.db'),
-  uploadsDir: path.resolve(process.cwd(), 'uploads'),
+  uploadsDir: process.env.UPLOADS_DIR || path.resolve(process.cwd(), 'uploads'),
   geminiApiKey: (process.env.GEMINI_API_KEY || '').trim(),
   geminiModel: resolveGeminiModel(),
   operatorPasswordEnv: (process.env.OPERATOR_PASSWORD || '').trim(),
